@@ -101,7 +101,7 @@ while not(step==(max_steps+1))
         tic
         m=m+1;
         disp(' ');
-        disp(['---------Epoch: ',num2str(m),'---------']);
+        disp(['------------Epoch: ',num2str(m),' Step: ',num2str(step),'/',num2str(max_steps),'------------']);
         disp('Applying ESO algorithm...');
         [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol, max_rank, max_cell_swap);
         [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
@@ -200,7 +200,7 @@ while not(step==(max_steps+1))
         if history_tmax(m-last_valid_file)<Max_temperature
             Max_temperature=history_tmax(m-last_valid_file);
             Best_topology=boundary_conditions;
-            disp('******************Best topology detected !******************')
+            disp('*********Best topology detected !**********')
         end
 
         saveas(gcf,['Figure_kp_ko_',num2str(high_conductivity),'_phi_',num2str(filling_ratio),'.png']);
