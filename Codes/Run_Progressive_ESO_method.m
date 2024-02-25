@@ -21,7 +21,7 @@ p_vol=1e6;                      %surface of volume power
 filling_ratio=0.3;              %ratio of conductive matter on the surface
 starting_image='12x24.bmp';     %self explanatory
 %----------Hyper parameters for the ESO algorithm--------------------------
-max_rank=2;                     %maximum allowed rank for exchange
+max_rank=5;                     %maximum allowed rank for exchange
 max_cell_swap=1;                %maximum number of simultaneous cell swap
 max_redounding_move_allowed=20; %stopping criterion, max_redounding_move_allowed*(1+step)
 max_steps=3;                    %number of scales tried into the run, 0 is the first run 3 is 2^3 scaling factor
