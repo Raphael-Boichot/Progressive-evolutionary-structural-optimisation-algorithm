@@ -15,6 +15,16 @@ Overall this code converges much faster than the "regular" ESO algorithm (Global
 - The ESO algorithm tends to focus mainly on the base of the "tree" whatever the hyper parameters I use. Not sure how to fix that without introducing bias. It may just be due to the poor sensitivity of thermal resistance to the conductivity of "terminal" cells;
 - Starting from a coarse mesh and refining it leads to more compact shapes at the end. The code falls easily into some local minima.
 
-## Exemple of convergence with kp/k0=10 and filling ratio = 0.3, domain size from 1x to 8x (10 steps per frame)
+Despite its flaws, the code generates topologies with very similar thermal properties: on a run of 16 converged case, the thermal resistance standard value falls below 0.6% !
+
+## Exemple of 16 converged cases with kp/k0=10 and filling ratio = 0.3, from best to worst
+
+![PESO algorithm](Pictures/Animated.gif)
+
+## Exemple of 16 converged cases with kp/k0=10 and filling ratio = 0.3, averaged
+
+![PESO algorithm](Pictures/Average.png)
+
+## Exemple of convergence steps with kp/k0=10 and filling ratio = 0.3, domain size from 1x to 8x (10 steps per frame)
 
 ![PESO algorithm](Pictures/Figure.gif)
