@@ -15,7 +15,7 @@ Overall this code converges much faster than the "regular" ESO algorithm (Global
 - The ESO algorithm tends to focus mainly on the base of the "tree" whatever the hyper parameters I use. Not sure how to fix that without introducing bias. It may just be due to the poor sensitivity of thermal resistance to the conductivity of "terminal" cells;
 - Starting from a coarse mesh and refining it leads to more compact shapes at the end. The code falls easily into some local minima.
 
-Despite its flaws, the code generates topologies with very similar thermal properties: on a run of 16 converged case, the thermal resistance standard value falls below 0.6% !
+Despite its flaws, the code generates topologies with very similar thermal properties: on a run of 16 converged case (shwon below), the thermal resistance standard value falls below 0.6% ! This means, seing the diversity of shapes having similar properties, that the objective function is very flat near the global optimum. Values of thermal resistances are very close to the best cases presented in [this paper, figure 8, black arrow](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem/blob/main/2016-IJTS-BOICHOT.pdf).
 
 ## Exemple of 16 converged cases with kp/k0=10 and filling ratio = 0.3, from best to worst
 
