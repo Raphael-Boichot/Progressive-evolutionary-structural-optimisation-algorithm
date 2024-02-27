@@ -37,4 +37,6 @@ Despite its flaws, the code generates topologies with very similar thermal prope
 
 ## Conclusion
 
-This is by far the fastest and most efficient algorithm I've written to tackle this problem. It will stay unpublished for the moment because I don't care having more papers in thermal science, it will not change anything in my carrer. I can also foresee the hassle of publishing this: finite difference not efficient, why not finite elements, why not a gradient method, why not a phase field formulation, why not Comsol, why not a staggered grid, etc. I'm honestly bored with all of that. Anyway, if you enjoy the code and use it, cite the author !
+This is by far the fastest and most efficient algorithm I've written to tackle this problem. It will stay unpublished for the moment because I don't care having more papers in thermal science, it will not change anything in my carrer. I can also foresee the hassle of publishing this: finite difference not efficient, why not finite elements, why not a gradient method, why not a phase field formulation, why not Comsol, why not a staggered grid, etc. I'm honestly bored with all of that. I think I'm more interested in the aesthetic of this branches now than in any real industrial application. I see them as pure mathematical amusement and art.
+
+Anyway, if you enjoy the code and use it, cite the author !
