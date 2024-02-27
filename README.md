@@ -8,7 +8,7 @@ This is an improvement of the [ESO (Evolutionary Structural Optimisation)](https
 
 It can be observed that as boundary condition elements are also doubled in the rescaling operation, the redounding external layer is discarded at each doubling step, this why the overall number of elements along one dimension is not strictly doubling at each step. Practically, after 3 steps of rescaling (8x in total), the calculations become impractically slow for a gain in thermal resistance below the standard deviation between runs. This means that it is more intersting to run a batch and take the best candidate topology than refining more a given topology. Sidenote: the optimization is scale independant regarding thermal properties so there is no bias when rescaling.
 
-Overall this code converges much faster than the "regular" ESO algorithm (Globally 50x faster) but the topology obtained are a bit more coarse and less fibrous (mathematically, non branched/fibrous shapes are optimal). This implies that they are a bit less efficient but also easier to fabricate. The shapes at convergence are very similar to the [Genetic Algorithm implementation](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem). Anyway, enjoy the code and cite the author !
+Overall this code converges much faster than the "regular" ESO algorithm (Globally 50x faster) but the topology obtained are a bit more coarse and less fibrous (mathematically, non branched/fibrous shapes are optimal). This implies that they are a bit less efficient but also easier to fabricate. The shapes at convergence are very similar to the [Genetic Algorithm implementation](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem).
 
 **Some cheats are used to fasten and ease convergence:**
 - The code starts by assessing 20 random topologies with 20 ESO steps (Monte Carlo stage). This allows avoiding to fall into obvious local minima as the "coarse" epochs kind of determine what the final shape will be, even if thermal resistance between converged shapes are very similar;
@@ -34,3 +34,7 @@ Despite its flaws, the code generates topologies with very similar thermal prope
 ## Exemple of convergence steps with kp/k0=10 and filling ratio = 0.3, domain size from 1x to 8x (10 steps per frame)
 
 ![PESO algorithm](Pictures/Figure.gif)
+
+## Conclusion
+
+This is by far the fastest and most efficient algorithm I've written to tackle this problem. It will stay unpublished for the moment because I don't care having more papers in thermal science, it will not change anything in my carrer. I can also foresee the hassle of publishing this: finite difference not efficient, why not finite elements, why not a gradient method, why not a phase field formulation, why not Comsol, why not a staggered grid, etc. I'm honestly bored with all of that. Anyway, if you enjoy the code and use it, cite the author !
