@@ -1,6 +1,6 @@
 ## Progressive Evolutionary Structural Optimisation (PESO) algorithm for thermal science
 
-This is an improvement of the [ESO (Evolutionary Structural Optimisation to tackle the Area-to-point problem)](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm) that was suggested in 2006 by [Lingai Luo](https://scholar.google.fr/citations?user=2Q79jugAAAAJ&hl=fr), my post-doctoral supervisor, so quite long ago, but never implemented to my knowledge. The idea is to use very coarse geometry first and to rescale progressively the domain meshing, in order to fasten the convergence. The principle works great but has the flaw of its main advantage: going fast increases the probability to fall into a local optimum. 
+This is an improvement of the [ESO (Evolutionary Structural Optimisation)](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm) to tackle the Area-to-point problem that was suggested in 2006 by [Lingai Luo](https://scholar.google.fr/citations?user=2Q79jugAAAAJ&hl=fr), my post-doctoral supervisor, so quite long ago, but never implemented to my knowledge. The idea is to use very coarse geometry first and to rescale progressively the domain meshing, in order to fasten the convergence. The principle works great but has the flaw of its main advantage: going fast increases the probability to fall into a local optimum. 
 
 ## General strategy: doubling the scale of domain after convergence of an ESO algorithm at a given scale
 
