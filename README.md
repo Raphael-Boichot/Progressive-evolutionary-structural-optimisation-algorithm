@@ -1,6 +1,12 @@
 ## Progressive Evolutionary Structural Optimisation (PESO) algorithm for thermal science
 
-This is an improvement of the [ESO (Evolutionary Structural Optimisation)](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm) that was suggested in 2006 by [Lingai Luo](https://scholar.google.fr/citations?user=2Q79jugAAAAJ&hl=fr), my post-doctoral supervisor, so quite long ago, but never implemented to my knowledge. The idea is to use very coarse geometry first and to refine progressively the domain meshing in order to fasten the convergence. The principle works great but has the flaw of its main advantage: going fast increases the probability to fall into a local optimum. 
+This is an improvement of the [ESO (Evolutionary Structural Optimisation)](https://github.com/Raphael-Boichot/Evolutionary-structural-optimisation-algorithm) that was suggested in 2006 by [Lingai Luo](https://scholar.google.fr/citations?user=2Q79jugAAAAJ&hl=fr), my post-doctoral supervisor, so quite long ago, but never implemented to my knowledge. The idea is to use very coarse geometry first and to rescale progressively the domain meshing, in order to fasten the convergence. The principle works great but has the flaw of its main advantage: going fast increases the probability to fall into a local optimum. 
+
+## General strategy: doubling the scale of domain after convergence of an ESO algorithm at a given scale
+
+![PESO algorithm](Pictures/Strategy.png)
+
+It can be observed that as boundary condition elements are also doubled in the rescaling operation, the redounding external layer is discarded at each doubling step, this why the overall number of elements along one dimension is not strictly doubling at each step. Practically, after 3 steps of rescaling (8x in total), the calculations become impractically slow for a gain in thermal resistance below the standard deviation between runs. This means that it is more intersting to run a batch and take the best candidate topology than refining more a given topology. Sidenote: the optimization is scale independant regarding thermal properties so there is no bias when rescaling.
 
 Overall this code converges much faster than the "regular" ESO algorithm (Globally 50x faster) but the topology obtained are a bit more coarse and less fibrous (mathematically, non branched/fibrous shapes are optimal). This implies that they are a bit less efficient but also easier to fabricate. The shapes at convergence are very similar to the [Genetic Algorithm implementation](https://github.com/Raphael-Boichot/A-genetic-algorithm-for-topology-optimization-of-area-to-point-heat-conduction-problem). Anyway, enjoy the code and cite the author !
 
