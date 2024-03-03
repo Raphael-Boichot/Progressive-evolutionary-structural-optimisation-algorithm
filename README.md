@@ -31,7 +31,7 @@ Despite its flaws, the code generates topologies with very similar thermal prope
 
 ![PESO algorithm](Pictures/Average.png)
 
-## Exemple of various objective functions tackled with the code (kp/k0=10 and filling ratio = 0.3)
+## Exemple of various objective functions tackled with the code (kp/k0=10 and filling ratio = 0.3), shapes that better fits with a bad trip than a research paper.
 
 ![PESO algorithm](Pictures/Art_forms_in_nature.png)
 
