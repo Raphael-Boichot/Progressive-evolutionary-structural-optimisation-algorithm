@@ -35,6 +35,8 @@ Despite its flaws, the code generates topologies with very similar thermal prope
 
 ![PESO algorithm](Pictures/Art_forms_in_nature.png)
 
+Despite the fascinating aspect of these optimized shapes, it appears clearly that the entropy equipartition is not a relevant principle to optimize this problem. It works relatively well for linear heat exchangers but is completely aberrant for topology optimization in more than 1D.
+
 ## Exemple of convergence steps with kp/k0=10 and filling ratio = 0.3, domain size from 1x to 8x (10 steps per frame), max temperature minimization
 
 ![PESO algorithm](Pictures/Figure.gif)
