@@ -73,20 +73,31 @@ disp('Filling blank image with conductive pixels...')
 number_conductive_cells=ceil(non_conductive_cells*filling_ratio);
 %boundary_conditions=init_image(boundary_conditions,number_conductive_cells, low_conductivity, high_conductivity);
 %***********************
-tmax_ini=1e15;
+objective_ini=1e15;
 disp('Trying some Monte Carlo search for beginning with a not too bad topology')
-max_trial=20;
+max_trial=100;
 for i=1:max_trial
-    disp(['Trial: ',num2str(i),'/',num2str(max_trial)])
+    disp(['Initial trial: ',num2str(i),'/',num2str(max_trial)])
     temp_conditions=init_image(boundary_conditions,number_conductive_cells, low_conductivity, high_conductivity);
-    for j=1:1:20
+    for j=1:1:50
         [temp_conditions,~,~] = fun_ESO_algorithm(temp_conditions,high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol, max_rank, max_cell_swap);
     end
-    [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,temp_conditions);
-    if t_max<tmax_ini
-        tmax_ini=t_max;
+    % Variables output in this order :
+    % 1. Distance of the hotest cell to the heat sink (scalar)
+    % 2. Sum of cell entropy (scalar)
+    % 3. Entropy map (matrix)
+    % 4. Variance of temperatures accross the 1D adabatic borders (scalar)
+    % 5. Variance of temperatures accross the 2D domain (scalar)
+    % 6. Mean temperature (scalar)
+    % 7. Maximal temperature accross the 2D domain (scalar)
+    % 8. Map of temperatures (matrix)
+    % 9. map of thermal gradients (matrix)
+    % 10. Variance of gradients across the 2D domain (scalar)
+    [~,~,~,~,~,~,objective_function,~,~,~]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,temp_conditions);
+    if objective_function<objective_ini
+        objective_ini=objective_function;
         best_initial_topology=temp_conditions;
-        disp('Best topology found !')
+        disp('Best topology found and kept !')
     end
 end
 boundary_conditions=best_initial_topology;
@@ -100,7 +111,7 @@ affichage=zeros(1,4);
 m=0;
 u=0;
 if silent_mode==0
-    figure('Position',[100 100 600 600]);
+    figure('Position',[100 100 700 700]);
 end
 step=0;
 while not(step==(max_steps+1))
@@ -113,8 +124,19 @@ while not(step==(max_steps+1))
         disp(['------------Epoch: ',num2str(m),' Step: ',num2str(step),'/',num2str(max_steps),'------------']);
         disp('Applying ESO algorithm...');
         [boundary_conditions,growth,etching] = fun_ESO_algorithm(boundary_conditions,high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol, max_rank, max_cell_swap);
-        [distance,somme_entropie, entropie, border_variance,variance, moyenne_temp,t_max,temp,grad,variance_grad]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
-        history_tmax(m)=t_max;
+        % Variables output in this order :
+        % 1. Distance of the hotest cell to the heat sink (scalar)
+        % 2. Sum of cell entropy (scalar)
+        % 3. Entropy map (matrix)
+        % 4. Variance of temperatures accross the 1D adabatic borders (scalar)
+        % 5. Variance of temperatures accross the 2D domain (scalar)
+        % 6. Mean temperature (scalar)
+        % 7. Maximal temperature accross the 2D domain (scalar)
+        % 8. Map of temperatures (matrix)
+        % 9. map of thermal gradients (matrix)
+        % 10. Variance of gradients across the 2D domain (scalar)
+        [~,~,entropy_map, ~,~, ~,t_max,temp,grad,~]=finite_temp_direct_sparse(high_conductivity,low_conductivity,heat_sink_temperature,delta_x,p_vol,boundary_conditions);
+        history_objective_function(m)=t_max;
         
         for k = 1:1:height
             for l = 1:1:width
@@ -154,8 +176,8 @@ while not(step==(max_steps+1))
             subplot(2,4,1:2);
             
             if (m)>2
-                if (m)<100; plot(history_tmax,'.r'); end
-                if (m)>=100; plot((history_tmax(end-98:end)),'.r'); end
+                if (m)<100; plot(history_objective_function,'.r'); end
+                if (m)>=100; plot((history_objective_function(end-98:end)),'.r'); end
             end
             title('Max temperature');
             
@@ -164,17 +186,16 @@ while not(step==(max_steps+1))
             title('Topology');
             
             subplot(2,4,5);
-            plot(variance,'.m');
-            imagesc(log10(entropie(2:end-1,2:end-1)));
+            imagesc(log10(entropy_map(2:end-1,2:end-1)));
             title('Log10 Entropy');
             
             subplot(2,4,6);
             imagesc(temp);
-            title('Temperature');
+            title('Temperatures map');
             
             subplot(2,4,7);
             imagesc(grad);
-            title('Gradients');
+            title('Gradients map');
         end
         old_max_history=max(max(history_map));
         for i=1:1:max_cell_swap
@@ -203,13 +224,13 @@ while not(step==(max_steps+1))
             imagesc(sqrt(history_map));
             title('History map');
             
-            disp(['Maximal temperature: ',num2str(history_tmax(m))]);
+            disp(['Maximal temperature: ',num2str(history_objective_function(m))]);
             initial_boundary_conditions=boundary_output;
             colormap jet
             drawnow;
         end
-        if history_tmax(m)<Max_temperature
-            Max_temperature=history_tmax(m);
+        if history_objective_function(m)<Max_temperature
+            Max_temperature=history_objective_function(m);
             Best_topology=boundary_conditions;
             disp('*********Best topology detected !**********')
         end
