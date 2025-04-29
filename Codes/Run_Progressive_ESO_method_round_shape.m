@@ -75,7 +75,7 @@ number_conductive_cells=ceil(non_conductive_cells*filling_ratio);
 %***********************
 objective_ini=1e15;
 disp('Trying some Monte Carlo search for beginning with a not too bad topology')
-max_trial=50;
+max_trial=100;
 for i=1:max_trial
     disp(['Initial trial: ',num2str(i),'/',num2str(max_trial)])
     temp_conditions=init_image(boundary_conditions,number_conductive_cells, low_conductivity, high_conductivity);
@@ -186,7 +186,8 @@ while not(step==(max_steps+1))
             title('Topology');
             
             subplot(2,4,5);
-            imagesc(log10(entropy_map(2:end-1,2:end-1)+1e-10));
+            min_entropy=min(min(entropy_map));
+            imagesc(log10(max(entropy_map(2:end-1,2:end-1),min_entropy)));
             title('Log10 Entropy');
             
             subplot(2,4,6);
