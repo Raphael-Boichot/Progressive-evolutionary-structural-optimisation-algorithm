@@ -190,7 +190,7 @@ while not(step==(max_steps+1))
             title('Log10 Entropy');
             
             subplot(2,4,6);
-            imagesc(temp);
+            imagesc(temp(2:end-1,2:end-1));
             title('Temperatures map');
             
             subplot(2,4,7);
